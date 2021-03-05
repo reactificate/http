@@ -58,7 +58,18 @@ class Response implements ResponseInterface
     protected ServerRequestInterface $request;
     protected EventEmitterInterface $event;
     private Deferred $deferred;
+    private static string $viewPath;
 
+
+    /**
+     * Set custom view directory
+     *
+     * @param string $viewPath
+     */
+    public static function setViewPath(string $viewPath): void
+    {
+        self::$viewPath = $viewPath;
+    }
 
     public function __construct(Deferred $deferred, ServerRequestInterface $request, array $handlers)
     {
@@ -198,7 +209,15 @@ class Response implements ResponseInterface
      */
     public function view(string $filePath, array $data = []): ResponseInterface
     {
-        if (!file_exists($filePath)){
+        if (isset(self::$viewPath)) {
+            if ('/' != substr(self::$viewPath, 0, 1)) {
+                self::$viewPath .= DIRECTORY_SEPARATOR;
+            }
+
+            $filePath = self::$viewPath . $filePath;
+        }
+
+        if (!file_exists($filePath)) {
             throw new ViewFileNotFound("View file \"{$filePath}\" is not found.");
         }
 
