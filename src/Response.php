@@ -93,7 +93,7 @@ class Response implements ResponseInterface
 
     public function html(string $htmlCode): ResponseInterface
     {
-        $this->header('Content-Type', 'text/html');
+        $this->header('Content-Type', 'text/html; charset=utf-8');
         return $this->write($htmlCode);
     }
 
@@ -128,7 +128,7 @@ class Response implements ResponseInterface
 
     public function json($arrayOrObject): ResponseInterface
     {
-        $this->header('Content-Type', 'application/json');
+        $this->header('Content-Type', 'application/json; charset=utf-8');
         return $this->write(Json::encode($arrayOrObject));
     }
 
