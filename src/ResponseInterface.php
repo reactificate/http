@@ -113,7 +113,6 @@ interface ResponseInterface
      *
      * @param string $url
      * @param int $statusCode
-     * @return mixed
      * @throws JsonException
      */
     public function redirect(string $url, int $statusCode = 302): void;
