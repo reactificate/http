@@ -5,6 +5,7 @@ namespace Reactificate\Http;
 
 
 use InvalidArgumentException;
+use Reactificate\Http\Middleware\MiddlewareInterface;
 use Reactificate\Utils\Utils;
 use SplQueue;
 
@@ -16,7 +17,7 @@ use SplQueue;
 class Handler
 {
     /**
-     * @var SplQueue<HttpHandlerInterface>
+     * @var SplQueue<HttpHandlerInterface|MiddlewareInterface>
      */
     protected SplQueue $handlers;
 
@@ -35,9 +36,9 @@ class Handler
         $this->handlers = new SplQueue();
         foreach ($handlers as $handler) {
             //make sure that all handlers implement HttpHandlerInterface
-            if (!$handler instanceof HttpHandlerInterface) {
+            if (!$handler instanceof HttpHandlerInterface && !$handler instanceof MiddlewareInterface) {
                 $strHandler = get_class($handler);
-                throw new InvalidArgumentException("Handler {$strHandler} must implement Reactificate\Http\HandlerInterface");
+                throw new InvalidArgumentException("Handler {$strHandler} must implement Reactificate\Http\HttpHandlerInterface");
             }
 
             $this->handlers->push($handler);
@@ -53,11 +54,18 @@ class Handler
             ->emit(Response::ON_NEXT_HANDLER, []);
 
         $this->handlers->next();
-        $this->handlers->current()->handle($this->response);
+        $current = $this->handlers->current();
+
+        if ($current instanceof HttpHandlerInterface) { //run handler
+            $current->handle($this->response);
+        } elseif ($current instanceof MiddlewareInterface) { //run middleware
+            /**@var \Reactificate\Http\Middleware\Middleware $this * */
+            $current->run($this, $this->response);
+        }
     }
 
     /**
-     * @return  SplQueue<HttpHandlerInterface>
+     * @return  SplQueue<HttpHandlerInterface|MiddlewareInterface>
      */
     public function getQueue(): SplQueue
     {

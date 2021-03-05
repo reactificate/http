@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b45ada47f37411f258d90de4bcfb53ce",
+    "content-hash": "59bf391b4c56c51fd2b33e8143727e44",
     "packages": [
         {
             "name": "ancarda/psr7-string-stream",
@@ -232,25 +232,25 @@
         },
         {
             "name": "psr/container",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+                "reference": "9fc7aab7a78057a124384358ebae8a1711b6f6fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
-                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/9fc7aab7a78057a124384358ebae8a1711b6f6fc",
+                "reference": "9fc7aab7a78057a124384358ebae8a1711b6f6fc",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=7.2.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -265,7 +265,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common Container Interface (PHP FIG PSR-11)",
@@ -279,9 +279,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/master"
+                "source": "https://github.com/php-fig/container/tree/1.1.0"
             },
-            "time": "2017-02-14T16:28:37+00:00"
+            "time": "2021-03-05T15:48:30+00:00"
         },
         {
             "name": "psr/http-message",
@@ -985,22 +985,23 @@
         },
         {
             "name": "reactificate/utils",
-            "version": "0.0.2",
+            "version": "0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactificate/utils.git",
-                "reference": "aa1be3f39bfdb3a27d9b07e6c9f81be07dceba59"
+                "reference": "abebe6a841ac35c14ee7e7580d03d96ab7d3c62f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactificate/utils/zipball/aa1be3f39bfdb3a27d9b07e6c9f81be07dceba59",
-                "reference": "aa1be3f39bfdb3a27d9b07e6c9f81be07dceba59",
+                "url": "https://api.github.com/repos/reactificate/utils/zipball/abebe6a841ac35c14ee7e7580d03d96ab7d3c62f",
+                "reference": "abebe6a841ac35c14ee7e7580d03d96ab7d3c62f",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
                 "react/event-loop": "^1.1",
-                "symfony/console": "^5.2"
+                "symfony/console": "^5.2",
+                "symfony/var-dumper": "^5.2"
             },
             "require-dev": {
                 "phpstan/phpstan": "^0.12.80"
@@ -1024,9 +1025,9 @@
             "description": "Utility libraries for reactification",
             "support": {
                 "issues": "https://github.com/reactificate/utils/issues",
-                "source": "https://github.com/reactificate/utils/tree/0.0.2"
+                "source": "https://github.com/reactificate/utils/tree/0.0.3"
             },
-            "time": "2021-03-05T13:34:16+00:00"
+            "time": "2021-03-05T15:02:54+00:00"
         },
         {
             "name": "ringcentral/psr7",
@@ -1912,6 +1913,94 @@
                 }
             ],
             "time": "2021-02-16T10:20:28+00:00"
+        },
+        {
+            "name": "symfony/var-dumper",
+            "version": "v5.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/var-dumper.git",
+                "reference": "6a81fec0628c468cf6d5c87a4d003725e040e223"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/6a81fec0628c468cf6d5c87a4d003725e040e223",
+                "reference": "6a81fec0628c468cf6d5c87a4d003725e040e223",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php80": "^1.15"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<5.4.3",
+                "symfony/console": "<4.4"
+            },
+            "require-dev": {
+                "ext-iconv": "*",
+                "symfony/console": "^4.4|^5.0",
+                "symfony/process": "^4.4|^5.0",
+                "twig/twig": "^2.13|^3.0.4"
+            },
+            "suggest": {
+                "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
+                "ext-intl": "To show region name in time zone dump",
+                "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
+            },
+            "bin": [
+                "Resources/bin/var-dump-server"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Resources/functions/dump.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Component\\VarDumper\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides mechanisms for walking through any arbitrary PHP variable",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "debug",
+                "dump"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/var-dumper/tree/v5.2.4"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-02-18T23:11:19+00:00"
         },
         {
             "name": "thecodingmachine/safe",
