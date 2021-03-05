@@ -4,8 +4,42 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8991dbe5138d449278a39cf8d6e68c9d",
+    "content-hash": "b45ada47f37411f258d90de4bcfb53ce",
     "packages": [
+        {
+            "name": "ancarda/psr7-string-stream",
+            "version": "1.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.sr.ht/~ancarda/psr7-string-stream",
+                "reference": "613485cfa5ed04fe26f6b60807209e098a97ca87"
+            },
+            "require": {
+                "php": ">=7.1",
+                "psr/http-message": "^1.0"
+            },
+            "require-dev": {
+                "infection/infection": "^0.11.5",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpstan/phpstan": "^0.11.15",
+                "phpstan/phpstan-phpunit": "^0.11.2",
+                "phpstan/phpstan-strict-rules": "^0.11.1",
+                "phpunit/phpunit": "^7.5",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ancarda\\Psr7\\StringStream\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Minimal string based PSR-7 StreamInterface implementation",
+            "time": "2019-08-31T19:30:45+00:00"
+        },
         {
             "name": "evenement/evenement",
             "version": "v3.0.1",
@@ -52,6 +86,64 @@
                 "source": "https://github.com/igorw/evenement/tree/master"
             },
             "time": "2017-07-23T21:35:13+00:00"
+        },
+        {
+            "name": "narrowspark/mimetypes",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/narrowspark/mimetypes.git",
+                "reference": "990cced3a92d4ffd348838338da44d547ee0c0fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/narrowspark/mimetypes/zipball/990cced3a92d4ffd348838338da44d547ee0c0fd",
+                "reference": "990cced3a92d4ffd348838338da44d547ee0c0fd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "ext-fileinfo": "*",
+                "ext-json": "*",
+                "mindscreen/yarnlock": "^1.0.1",
+                "narrowspark/coding-standard": "^3.0.0",
+                "phpunit/phpunit": "^8.3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Narrowspark\\MimeType\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Bannert",
+                    "email": "d.bannert@anolilab.de",
+                    "homepage": "http://www.anolilab.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP MIME Types Guesser and extension mapping.",
+            "keywords": [
+                "guesser",
+                "mimetype",
+                "mimetypes",
+                "narrowspark"
+            ],
+            "support": {
+                "issues": "https://github.com/narrowspark/mimetypes/issues",
+                "source": "https://github.com/narrowspark/mimetypes"
+            },
+            "time": "2020-01-06T20:43:25+00:00"
         },
         {
             "name": "nette/utils",
@@ -998,6 +1090,85 @@
             "time": "2018-05-29T20:21:04+00:00"
         },
         {
+            "name": "scriptfusion/byte-formatter",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ScriptFUSION/ByteFormatter.git",
+                "reference": "e984c4a8441b9300057353ad956418dc62e9b02a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ScriptFUSION/ByteFormatter/zipball/e984c4a8441b9300057353ad956418dc62e9b02a",
+                "reference": "e984c4a8441b9300057353ad956418dc62e9b02a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5|^7",
+                "scriptfusion/static-class": "^1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3",
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ScriptFUSION\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bilge",
+                    "email": "bilge@scriptfusion.com"
+                }
+            ],
+            "description": "Formats byte values as human-readable strings.",
+            "support": {
+                "issues": "https://github.com/ScriptFUSION/ByteFormatter/issues",
+                "source": "https://github.com/ScriptFUSION/ByteFormatter/tree/3.3.0"
+            },
+            "time": "2020-10-17T16:07:54+00:00"
+        },
+        {
+            "name": "scriptfusion/static-class",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ScriptFUSION/StaticClass.git",
+                "reference": "87eb29703db3baba09b68d35b739372370bfb5a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ScriptFUSION/StaticClass/zipball/87eb29703db3baba09b68d35b739372370bfb5a0",
+                "reference": "87eb29703db3baba09b68d35b739372370bfb5a0",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ScriptFUSION\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Bilge",
+                    "email": "bilge@scriptfusion.com"
+                }
+            ],
+            "description": "Prevents class instantiation.",
+            "support": {
+                "issues": "https://github.com/ScriptFUSION/StaticClass/issues",
+                "source": "https://github.com/ScriptFUSION/StaticClass/tree/master"
+            },
+            "time": "2016-06-04T13:42:04+00:00"
+        },
+        {
             "name": "symfony/console",
             "version": "v5.2.4",
             "source": {
@@ -1741,6 +1912,255 @@
                 }
             ],
             "time": "2021-02-16T10:20:28+00:00"
+        },
+        {
+            "name": "thecodingmachine/safe",
+            "version": "v1.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thecodingmachine/safe.git",
+                "reference": "a8ab0876305a4cdaef31b2350fcb9811b5608dbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thecodingmachine/safe/zipball/a8ab0876305a4cdaef31b2350fcb9811b5608dbc",
+                "reference": "a8ab0876305a4cdaef31b2350fcb9811b5608dbc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "squizlabs/php_codesniffer": "^3.2",
+                "thecodingmachine/phpstan-strict-rules": "^0.12"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Safe\\": [
+                        "lib/",
+                        "deprecated/",
+                        "generated/"
+                    ]
+                },
+                "files": [
+                    "deprecated/apc.php",
+                    "deprecated/libevent.php",
+                    "deprecated/mssql.php",
+                    "deprecated/stats.php",
+                    "lib/special_cases.php",
+                    "generated/apache.php",
+                    "generated/apcu.php",
+                    "generated/array.php",
+                    "generated/bzip2.php",
+                    "generated/calendar.php",
+                    "generated/classobj.php",
+                    "generated/com.php",
+                    "generated/cubrid.php",
+                    "generated/curl.php",
+                    "generated/datetime.php",
+                    "generated/dir.php",
+                    "generated/eio.php",
+                    "generated/errorfunc.php",
+                    "generated/exec.php",
+                    "generated/fileinfo.php",
+                    "generated/filesystem.php",
+                    "generated/filter.php",
+                    "generated/fpm.php",
+                    "generated/ftp.php",
+                    "generated/funchand.php",
+                    "generated/gmp.php",
+                    "generated/gnupg.php",
+                    "generated/hash.php",
+                    "generated/ibase.php",
+                    "generated/ibmDb2.php",
+                    "generated/iconv.php",
+                    "generated/image.php",
+                    "generated/imap.php",
+                    "generated/info.php",
+                    "generated/ingres-ii.php",
+                    "generated/inotify.php",
+                    "generated/json.php",
+                    "generated/ldap.php",
+                    "generated/libxml.php",
+                    "generated/lzf.php",
+                    "generated/mailparse.php",
+                    "generated/mbstring.php",
+                    "generated/misc.php",
+                    "generated/msql.php",
+                    "generated/mysql.php",
+                    "generated/mysqli.php",
+                    "generated/mysqlndMs.php",
+                    "generated/mysqlndQc.php",
+                    "generated/network.php",
+                    "generated/oci8.php",
+                    "generated/opcache.php",
+                    "generated/openssl.php",
+                    "generated/outcontrol.php",
+                    "generated/password.php",
+                    "generated/pcntl.php",
+                    "generated/pcre.php",
+                    "generated/pdf.php",
+                    "generated/pgsql.php",
+                    "generated/posix.php",
+                    "generated/ps.php",
+                    "generated/pspell.php",
+                    "generated/readline.php",
+                    "generated/rpminfo.php",
+                    "generated/rrd.php",
+                    "generated/sem.php",
+                    "generated/session.php",
+                    "generated/shmop.php",
+                    "generated/simplexml.php",
+                    "generated/sockets.php",
+                    "generated/sodium.php",
+                    "generated/solr.php",
+                    "generated/spl.php",
+                    "generated/sqlsrv.php",
+                    "generated/ssdeep.php",
+                    "generated/ssh2.php",
+                    "generated/stream.php",
+                    "generated/strings.php",
+                    "generated/swoole.php",
+                    "generated/uodbc.php",
+                    "generated/uopz.php",
+                    "generated/url.php",
+                    "generated/var.php",
+                    "generated/xdiff.php",
+                    "generated/xml.php",
+                    "generated/xmlrpc.php",
+                    "generated/yaml.php",
+                    "generated/yaz.php",
+                    "generated/zip.php",
+                    "generated/zlib.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP core functions that throw exceptions instead of returning FALSE on error",
+            "support": {
+                "issues": "https://github.com/thecodingmachine/safe/issues",
+                "source": "https://github.com/thecodingmachine/safe/tree/v1.3.3"
+            },
+            "time": "2020-10-28T17:51:34+00:00"
+        },
+        {
+            "name": "wyrihaximus/constants",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WyriHaximus/php-constants.git",
+                "reference": "32ceffdd881593c7fa24d8fcbf9deb58687484cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WyriHaximus/php-constants/zipball/32ceffdd881593c7fa24d8fcbf9deb58687484cb",
+                "reference": "32ceffdd881593c7fa24d8fcbf9deb58687484cb",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8 || ^7 || ^5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Boolean/constants_include.php",
+                    "src/ComposerAutoloader/constants_include.php",
+                    "src/HTTPStatusCodes/constants_include.php",
+                    "src/Numeric/constants_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "ceesjank@gmail.com",
+                    "homepage": "https://www.wyrihaximus.net/"
+                }
+            ],
+            "description": "Collection of constants for PHP",
+            "support": {
+                "issues": "https://github.com/WyriHaximus/php-constants/issues",
+                "source": "https://github.com/WyriHaximus/php-constants/tree/1.6.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/WyriHaximus",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-11-28T12:04:43+00:00"
+        },
+        {
+            "name": "wyrihaximus/react-http-middleware-webroot-preload",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WyriHaximus/reactphp-http-middleware-webroot-preload.git",
+                "reference": "dea5b52692bc5bbbebb9a6723ba20b06083ec020"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WyriHaximus/reactphp-http-middleware-webroot-preload/zipball/dea5b52692bc5bbbebb9a6723ba20b06083ec020",
+                "reference": "dea5b52692bc5bbbebb9a6723ba20b06083ec020",
+                "shasum": ""
+            },
+            "require": {
+                "ancarda/psr7-string-stream": "^1.3",
+                "narrowspark/mimetypes": "^1.6",
+                "php": "^7.4 || ^8.0",
+                "psr/http-message": "^1",
+                "psr/log": "^1.1",
+                "react/cache": "^1",
+                "react/http": "^1",
+                "react/promise": "^2.8",
+                "scriptfusion/byte-formatter": "^3.2",
+                "thecodingmachine/safe": "^1.3",
+                "wyrihaximus/constants": "^1.5"
+            },
+            "require-dev": {
+                "brunty/cigar": "^1.12",
+                "wyrihaximus/async-test-utilities": "^3.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WyriHaximus\\React\\Http\\Middleware\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "ceesjank@gmail.com"
+                }
+            ],
+            "description": "react/http middleware static webroot serving",
+            "support": {
+                "issues": "https://github.com/WyriHaximus/reactphp-http-middleware-webroot-preload/issues",
+                "source": "https://github.com/WyriHaximus/reactphp-http-middleware-webroot-preload/tree/2.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/WyriHaximus",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-01-09T16:35:47+00:00"
         }
     ],
     "packages-dev": [
