@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85a13abd6672c15344630f2445e26784",
+    "content-hash": "eabb60f9bec8001048114b1ae141fbea",
     "packages": [
         {
             "name": "evenement/evenement",
@@ -893,16 +893,16 @@
         },
         {
             "name": "reactificate/utils",
-            "version": "dev-master",
+            "version": "0.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactificate/utils.git",
-                "reference": "bee8e7355cc86f60c6d1c01a8cbf33ce990a09ab"
+                "reference": "7cb78975399f4a9a41fe90ad85744d0eec23cd62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactificate/utils/zipball/bee8e7355cc86f60c6d1c01a8cbf33ce990a09ab",
-                "reference": "bee8e7355cc86f60c6d1c01a8cbf33ce990a09ab",
+                "url": "https://api.github.com/repos/reactificate/utils/zipball/7cb78975399f4a9a41fe90ad85744d0eec23cd62",
+                "reference": "7cb78975399f4a9a41fe90ad85744d0eec23cd62",
                 "shasum": ""
             },
             "require": {
@@ -913,7 +913,6 @@
             "require-dev": {
                 "phpstan/phpstan": "^0.12.80"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -933,9 +932,9 @@
             "description": "Utility libraries for reactification",
             "support": {
                 "issues": "https://github.com/reactificate/utils/issues",
-                "source": "https://github.com/reactificate/utils/tree/master"
+                "source": "https://github.com/reactificate/utils/tree/0.0.1"
             },
-            "time": "2021-03-02T10:56:20+00:00"
+            "time": "2021-03-03T21:23:24+00:00"
         },
         {
             "name": "ringcentral/psr7",
@@ -1808,9 +1807,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "reactificate/utils": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
