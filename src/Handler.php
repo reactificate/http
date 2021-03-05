@@ -5,7 +5,7 @@ namespace Reactificate\Http;
 
 
 use InvalidArgumentException;
-use Reactificate\ObjectStorage;
+use Reactificate\Utils\Utils;
 use SplQueue;
 
 /**
@@ -49,7 +49,7 @@ class Handler
     public function next(): void
     {
         //Emit next middleware event
-        ObjectStorage::get('Reactificate.event')
+        Utils::get('Reactificate.event')
             ->emit(Response::ON_NEXT_HANDLER, []);
 
         $this->handlers->next();

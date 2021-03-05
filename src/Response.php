@@ -12,7 +12,7 @@ use Psr\Http\Message\StreamInterface;
 use React\Http\Message\Response as ReactResponse;
 use React\Promise\Deferred;
 use Reactificate\Http\Exceptions\ViewFileNotFound;
-use Reactificate\ObjectStorage;
+use Reactificate\Utils\Utils;
 use RingCentral\Psr7\Stream;
 
 class Response implements ResponseInterface
@@ -63,7 +63,7 @@ class Response implements ResponseInterface
     public function __construct(Deferred $deferred, ServerRequestInterface $request, array $handlers)
     {
         //Add event class to object storage
-        ObjectStorage::set('Reactificate.event', new EventEmitter());
+        Utils::set('Reactificate.event', new EventEmitter());
 
         $this->deferred = $deferred;
         $this->handler = new Handler($handlers, $this);
@@ -89,7 +89,7 @@ class Response implements ResponseInterface
     public function header($name, ?string $value = null): ResponseInterface
     {
         //Emit headers event
-        ObjectStorage::get('Reactificate.event')
+        Utils::get('Reactificate.event')
             ->emit(self::ON_HEADERS, [$this->headers]);
 
         if (is_array($name)) {
@@ -104,7 +104,7 @@ class Response implements ResponseInterface
     public function write($data): ResponseInterface
     {
         //emit write event
-        ObjectStorage::get('Reactificate.event')
+        Utils::get('Reactificate.event')
             ->emit(self::ON_WRITE, [$data]);
 
         if (!is_scalar($data)) {
@@ -133,7 +133,7 @@ class Response implements ResponseInterface
     public function end($message = null): void
     {
         //emit before send event
-        ObjectStorage::get('Reactificate.event')
+        Utils::get('Reactificate.event')
             ->emit(self::ON_BEFORE_SEND, [$message]);
 
         if (null !== $message) {
@@ -173,14 +173,14 @@ class Response implements ResponseInterface
 
     public function on(string $eventName, callable $listener): ResponseInterface
     {
-        ObjectStorage::get('Reactificate.event')
+        Utils::get('Reactificate.event')
             ->on($eventName, $listener);
         return $this;
     }
 
     public function once(string $eventName, callable $listener): ResponseInterface
     {
-        ObjectStorage::get('Reactificate.event')
+        Utils::get('Reactificate.event')
             ->once($eventName, $listener);
         return $this;
     }
