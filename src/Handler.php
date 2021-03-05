@@ -49,7 +49,7 @@ class Handler
     public function next(): void
     {
         //Emit next middleware event
-        Utils::get('Reactificate.event')
+        Utils::get('reactificate.event')
             ->emit(Response::ON_NEXT_HANDLER, []);
 
         $this->handlers->next();

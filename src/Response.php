@@ -39,27 +39,31 @@ class Response implements ResponseInterface
 
 
     protected const STREAM_FILE = 'php://temp';
-
+    private static string $viewPath;
     protected array $headers = [];
-
     protected array $status = [
         'code' => 200,
         'phrase' => 'OK'
     ];
-
     protected string $version = '1.1';
-
     protected array $values = [
         'headers' => [],
     ];
-
     protected StreamInterface $stream;
     protected Handler $handler;
     protected ServerRequestInterface $request;
     protected EventEmitterInterface $event;
     private Deferred $deferred;
-    private static string $viewPath;
 
+    public function __construct(Deferred $deferred, ServerRequestInterface $request, array $handlers)
+    {
+        //Add event class to object storage
+        Utils::set('reactificate.event', new EventEmitter());
+
+        $this->deferred = $deferred;
+        $this->handler = new Handler($handlers, $this);
+        $this->request = $request;
+    }
 
     /**
      * Set custom view directory
@@ -69,16 +73,6 @@ class Response implements ResponseInterface
     public static function setViewPath(string $viewPath): void
     {
         self::$viewPath = $viewPath;
-    }
-
-    public function __construct(Deferred $deferred, ServerRequestInterface $request, array $handlers)
-    {
-        //Add event class to object storage
-        Utils::set('Reactificate.event', new EventEmitter());
-
-        $this->deferred = $deferred;
-        $this->handler = new Handler($handlers, $this);
-        $this->request = $request;
     }
 
     public function handler(): Handler
@@ -91,60 +85,10 @@ class Response implements ResponseInterface
         return $this->request;
     }
 
-    public function html(string $htmlCode): ResponseInterface
-    {
-        $this->header('Content-Type', 'text/html; charset=utf-8');
-        return $this->write($htmlCode);
-    }
-
-    public function header($name, ?string $value = null): ResponseInterface
-    {
-        //Emit headers event
-        Utils::get('Reactificate.event')
-            ->emit(self::ON_HEADERS, [$this->headers]);
-
-        if (is_array($name)) {
-            $this->headers = array_merge($this->headers, $name);
-            return $this;
-        }
-
-        $this->headers[$name] = $value;
-        return $this;
-    }
-
-    public function write($data): ResponseInterface
-    {
-        //emit write event
-        Utils::get('Reactificate.event')
-            ->emit(self::ON_WRITE, [$data]);
-
-        if (!is_scalar($data)) {
-            return $this->json($data);
-        }
-
-        $this->getStream()->write($data);
-        return $this;
-    }
-
-    public function json($arrayOrObject): ResponseInterface
-    {
-        $this->header('Content-Type', 'application/json; charset=utf-8');
-        return $this->write(Json::encode($arrayOrObject));
-    }
-
-    protected function getStream(): StreamInterface
-    {
-        if (!isset($this->stream)) {
-            $this->stream = new Stream(fopen(self::STREAM_FILE, 'w+'));
-        }
-
-        return $this->stream;
-    }
-
     public function end($message = null): void
     {
         //emit before send event
-        Utils::get('Reactificate.event')
+        Utils::get('reactificate.event')
             ->emit(self::ON_BEFORE_SEND, [$message]);
 
         if (null !== $message) {
@@ -166,14 +110,13 @@ class Response implements ResponseInterface
         $this->deferred->resolve($response);
     }
 
-    public function status(int $code, ?string $phrase = null): ResponseInterface
+    protected function getStream(): StreamInterface
     {
-        $this->status = [
-            'code' => $code,
-            'phrase' => $phrase
-        ];
+        if (!isset($this->stream)) {
+            $this->stream = new Stream(fopen(self::STREAM_FILE, 'w+'));
+        }
 
-        return $this;
+        return $this->stream;
     }
 
     public function version(string $version): ResponseInterface
@@ -184,24 +127,16 @@ class Response implements ResponseInterface
 
     public function on(string $eventName, callable $listener): ResponseInterface
     {
-        Utils::get('Reactificate.event')
+        Utils::get('reactificate.event')
             ->on($eventName, $listener);
         return $this;
     }
 
     public function once(string $eventName, callable $listener): ResponseInterface
     {
-        Utils::get('Reactificate.event')
+        Utils::get('reactificate.event')
             ->once($eventName, $listener);
         return $this;
-    }
-
-    protected function createStream(string $body): StreamInterface
-    {
-        $stream = $this->getStream();
-        $stream->write($body);
-        $stream->rewind();
-        return $stream;
     }
 
     /**
@@ -232,5 +167,72 @@ class Response implements ResponseInterface
         ob_end_clean();
 
         return $this->html($html);
+    }
+
+    public function html(string $htmlCode): ResponseInterface
+    {
+        $this->header('Content-Type', 'text/html; charset=utf-8');
+        return $this->write($htmlCode);
+    }
+
+    public function header($name, ?string $value = null): ResponseInterface
+    {
+        //Emit headers event
+        Utils::get('reactificate.event')
+            ->emit(self::ON_HEADERS, [$this->headers]);
+
+        if (is_array($name)) {
+            $this->headers = array_merge($this->headers, $name);
+            return $this;
+        }
+
+        $this->headers[$name] = $value;
+        return $this;
+    }
+
+    public function write($data): ResponseInterface
+    {
+        //emit write event
+        Utils::get('reactificate.event')
+            ->emit(self::ON_WRITE, [$data]);
+
+        if (!is_scalar($data)) {
+            return $this->json($data);
+        }
+
+        $this->getStream()->write($data);
+        return $this;
+    }
+
+    public function json($arrayOrObject): ResponseInterface
+    {
+        $this->header('Content-Type', 'application/json; charset=utf-8');
+        return $this->write(Json::encode($arrayOrObject));
+    }
+
+    public function redirect(string $url, int $statusCode = 302): void
+    {
+        $this->status($statusCode)
+            ->header('Location', $url)
+            ->html("Redirecting you to <a href=\"{$url}\">{$url}</a>...")
+            ->end();
+    }
+
+    public function status(int $code, ?string $phrase = null): ResponseInterface
+    {
+        $this->status = [
+            'code' => $code,
+            'phrase' => $phrase
+        ];
+
+        return $this;
+    }
+
+    protected function createStream(string $body): StreamInterface
+    {
+        $stream = $this->getStream();
+        $stream->write($body);
+        $stream->rewind();
+        return $stream;
     }
 }

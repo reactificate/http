@@ -41,11 +41,11 @@ class WebRoot
      */
     public function getValues(): array
     {
-        if (!array_key_exists('cache', $this->values)){
+        if (!array_key_exists('cache', $this->values)) {
             $this->values['cache'] = new ArrayCache();
         }
 
-        if (!array_key_exists('logger', $this->values)){
+        if (!array_key_exists('logger', $this->values)) {
             $this->values['logger'] = new NullLogger();
         }
 
