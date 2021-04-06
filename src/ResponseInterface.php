@@ -116,4 +116,11 @@ interface ResponseInterface
      * @throws JsonException
      */
     public function redirect(string $url, int $statusCode = 302): void;
+
+    /**
+     * Check whether response is ended
+     *
+     * @return bool
+     */
+    public function isEnded(): bool;
 }

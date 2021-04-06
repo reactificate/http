@@ -33,6 +33,11 @@ class Response implements ResponseInterface
     public const ON_BEFORE_SEND = 'on.before.send';
 
     /**
+     * This event will be emitted when end() method is called
+     */
+    public const ON_END = 'on.end';
+
+    /**
      * This event will be emitted when next handler is executed
      */
     public const ON_NEXT_HANDLER = 'on.next.middleware';
@@ -54,6 +59,8 @@ class Response implements ResponseInterface
     protected ServerRequestInterface $request;
     protected EventEmitterInterface $event;
     private Deferred $deferred;
+    private bool $isEnded = false;
+
 
     public function __construct(Deferred $deferred, ServerRequestInterface $request, array $handlers)
     {
@@ -87,6 +94,10 @@ class Response implements ResponseInterface
 
     public function end($message = null): void
     {
+        if ($this->isEnded) {
+            return;
+        }
+
         //emit before send event
         Utils::get('reactificate.event')
             ->emit(self::ON_BEFORE_SEND, [$message]);
@@ -107,7 +118,12 @@ class Response implements ResponseInterface
             $this->status['phrase']
         );
 
+        //emit before send event
+        Utils::get('reactificate.event')
+            ->emit(self::ON_END, [$response]);
+
         $this->deferred->resolve($response);
+        $this->isEnded = true;
     }
 
     protected function getStream(): StreamInterface
@@ -121,6 +137,10 @@ class Response implements ResponseInterface
 
     public function version(string $version): ResponseInterface
     {
+        if ($this->isEnded) {
+            return $this;
+        }
+
         $this->version = $version;
         return $this;
     }
@@ -144,6 +164,10 @@ class Response implements ResponseInterface
      */
     public function view(string $filePath, array $data = []): ResponseInterface
     {
+        if ($this->isEnded) {
+            return $this;
+        }
+
         if (isset(self::$viewPath)) {
             if ('/' != substr(self::$viewPath, 0, 1)) {
                 self::$viewPath .= DIRECTORY_SEPARATOR;
@@ -171,12 +195,20 @@ class Response implements ResponseInterface
 
     public function html(string $htmlCode): ResponseInterface
     {
+        if ($this->isEnded) {
+            return $this;
+        }
+
         $this->header('Content-Type', 'text/html; charset=utf-8');
         return $this->write($htmlCode);
     }
 
     public function header($name, ?string $value = null): ResponseInterface
     {
+        if ($this->isEnded) {
+            return $this;
+        }
+
         //Emit headers event
         Utils::get('reactificate.event')
             ->emit(self::ON_HEADERS, [$this->headers]);
@@ -192,6 +224,10 @@ class Response implements ResponseInterface
 
     public function write($data): ResponseInterface
     {
+        if ($this->isEnded) {
+            return $this;
+        }
+
         //emit write event
         Utils::get('reactificate.event')
             ->emit(self::ON_WRITE, [$data]);
@@ -206,12 +242,20 @@ class Response implements ResponseInterface
 
     public function json($arrayOrObject): ResponseInterface
     {
+        if ($this->isEnded) {
+            return $this;
+        }
+
         $this->header('Content-Type', 'application/json; charset=utf-8');
         return $this->write(Json::encode($arrayOrObject));
     }
 
     public function redirect(string $url, int $statusCode = 302): void
     {
+        if ($this->isEnded) {
+            return;
+        }
+
         $this->status($statusCode)
             ->header('Location', $url)
             ->html("Redirecting you to <a href=\"{$url}\">{$url}</a>...")
@@ -220,12 +264,24 @@ class Response implements ResponseInterface
 
     public function status(int $code, ?string $phrase = null): ResponseInterface
     {
+        if ($this->isEnded) {
+            return $this;
+        }
+
         $this->status = [
             'code' => $code,
             'phrase' => $phrase
         ];
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnded(): bool
+    {
+        return $this->isEnded;
     }
 
     protected function createStream(string $body): StreamInterface

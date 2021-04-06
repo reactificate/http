@@ -27,5 +27,10 @@
     },
     "scripts": {
         "analyse": "phpstan analyse"
+    },
+    "config": {
+        "platform": {
+            "PHP": "7.4"
+        }
     }
 }
